@@ -72,6 +72,21 @@ use Cake\Utility\Security;
 try {
     Configure::config('default', new PhpConfig());
     Configure::load('app', 'default', false);
+    //header('Access-Control-Allow-Origin: *');
+    //header('Access-Control-Request-Method: *');
+    //header('Access-Control-Allow-Methods: POST,PUT,PATCH,GET,DELETE,OPTIONS');
+    //header('Access-Control-Allow-Headers: *');
+    header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Methods: HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS");
+    header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+    header('Content-Type: application/json');
+    $method = $_SERVER['REQUEST_METHOD'];
+    if ($method == "OPTIONS") {
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+        header("HTTP/1.1 200 OK");
+        die();
+    }
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
