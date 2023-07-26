@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Log\Log;
 
 /**
  * Tasks Controller
@@ -44,7 +45,6 @@ class TasksApiController extends AppController
     public function add()
     {
         $this->request->allowMethod(['post', 'put']);
-
         $task = $this->Tasks->newEntity($this->request->getData());
         if ($this->Tasks->save($task)) {
             $message = 'Saved';

@@ -63,15 +63,17 @@ class TasksTable extends Table
             ->notEmptyString('description');
 
         $validator
-            ->scalar('file')
-            ->maxLength('file', 255)
-            ->requirePresence('file', 'create')
-            ->notEmptyFile('file');
-
-        $validator
             ->boolean('done')
             ->requirePresence('done', 'create')
             ->notEmptyString('done');
+
+        $validator
+            ->scalar('image')
+            ->allowEmptyFile('image');
+
+        $validator
+            ->scalar('url_video')
+            ->allowEmptyFile('url_video');
 
         return $validator;
     }

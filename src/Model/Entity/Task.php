@@ -9,7 +9,8 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $title
  * @property string $description
- * @property string $file
+ * @property string $image
+ * @property string $url_video
  * @property bool $done
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
@@ -28,8 +29,9 @@ class Task extends Entity
     protected $_accessible = [
         'title' => true,
         'description' => true,
-        'file' => true,
         'done' => true,
+        'image' => true,
+        'url_video' => true,
         'created' => true,
         'modified' => true,
     ];

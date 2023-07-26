@@ -22,14 +22,17 @@ class CreateTasks extends AbstractMigration
             'default' => null,
             'null' => false,
         ]);
-        $table->addColumn('file', 'string', [
-            'default' => null,
-            'limit' => 255,
-            'null' => false,
-        ]);
         $table->addColumn('done', 'boolean', [
             'default' => null,
             'null' => false,
+        ]);
+        $table->addColumn('image', 'text', [
+            'default' => null,
+            'null' => true,
+        ]);
+        $table->addColumn('url_video', 'string', [
+            'default' => null,
+            'null' => true,
         ]);
         $table->addColumn('created', 'datetime', [
             'default' => null,
