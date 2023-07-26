@@ -46,18 +46,28 @@ class TasksApiController extends AppController
     {
         $this->request->allowMethod(['post', 'put']);
         $task = $this->Tasks->newEntity($this->request->getData());
-        if ($this->Tasks->save($task)) {
-            $message = 'Saved';
-            $status = true;
-        } else {
-            $message = 'Error';
-            $status = false;
+        if($task->getErrors())
+        {
+            $data = [
+                'status' => false,
+                'message' => 'Error',
+                'errors' => $task->getErrors()
+            ];
+            return $this->response->withType('application/json')->withStringBody(json_encode($data))->withStatus(409);
+        }
+        if (!$this->Tasks->save($task))
+        {
+            $data = [
+                'status' => false,
+                'message' => 'Error'
+            ];
+            return $this->response->withType('application/json')->withStringBody(json_encode($data))->withStatus(400);
         }
         $this->set([
-            'status' => $status,
-            'message' => $message,
+            'status' => true,
+            'message' => 'Saved',
             'task' => $task,
-            '_serialize' => ['status','message', 'task']
+            '_serialize' => ['status','message','task']
         ]);
     }
 
@@ -67,17 +77,28 @@ class TasksApiController extends AppController
         $this->request->allowMethod(['patch', 'post', 'put']);
         $task = $this->Tasks->get($id);
         $task = $this->Tasks->patchEntity($task, $this->request->getData());
-        if ($this->Tasks->save($task)) {
-            $message = 'Edited';
-            $status = true;
-        } else {
-            $message = 'Error';
-            $status = false;
+        if($task->getErrors())
+        {
+            $data = [
+                'status' => false,
+                'message' => 'Error',
+                'errors' => $task->getErrors()
+            ];
+            return $this->response->withType('application/json')->withStringBody(json_encode($data))->withStatus(409);
+        }
+        if (!$this->Tasks->save($task))
+        {
+            $data = [
+                'status' => false,
+                'message' => 'Error'
+            ];
+            return $this->response->withType('application/json')->withStringBody(json_encode($data))->withStatus(400);
         }
         $this->set([
-            'status' => $status,
-            'message' => $message,
-            '_serialize' => ['status','message']
+            'status' => true,
+            'message' => 'Edited',
+            'task' => $task,
+            '_serialize' => ['status','message','task']
         ]);
     }
 
