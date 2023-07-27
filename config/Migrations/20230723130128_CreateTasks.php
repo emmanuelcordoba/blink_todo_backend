@@ -1,5 +1,6 @@
 <?php
 use Migrations\AbstractMigration;
+use Phinx\Db\Adapter\MysqlAdapter;
 
 class CreateTasks extends AbstractMigration
 {
@@ -29,6 +30,7 @@ class CreateTasks extends AbstractMigration
         $table->addColumn('image', 'text', [
             'default' => null,
             'null' => true,
+            'limit' => MysqlAdapter::TEXT_LONG,
         ]);
         $table->addColumn('url_video', 'string', [
             'default' => null,
